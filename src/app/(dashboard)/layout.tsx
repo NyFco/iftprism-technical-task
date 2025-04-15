@@ -3,6 +3,7 @@
 import { useMe } from "@/api/user/hooks";
 import { useUserStore } from "@/store/userStore";
 import { ReactNode, useEffect } from "react";
+import Header from "./_components/Header";
 
 const DashboardLayout = ({
   children,
@@ -22,8 +23,8 @@ const DashboardLayout = ({
 
   return (
     <div>
-      {/* Sidebar here */}
-      <main>{children}</main>
+      <Header />
+      <main className="p-2">{children}</main>
     </div>
   );
 };

@@ -1,10 +1,11 @@
 import { useUserStore } from "@/store/userStore";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useMutation, useQueryClient } from "react-query";
 import { loginApi, logoutApi } from "./auth.api";
 
 export const useLogin = () => {
-  const setUser = useUserStore((state) => state.setUser);
+  const { setUser } = useUserStore();
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -20,17 +21,17 @@ export const useLogin = () => {
 };
 
 export const useLogout = () => {
-  const setUser = useUserStore((state) => state.setUser);
-  const queryClient = useQueryClient();
+  const router = useRouter();
+  const { setUser } = useUserStore();
 
   return useMutation({
     mutationFn: logoutApi,
     onSuccess: (response) => {
-      queryClient.invalidateQueries({ queryKey: ["user"] });
-      setUser(null);
+      router.replace("/login");
       const successMessage =
         response?.message || "You have logged out successfully";
       toast.success(successMessage);
+      setUser(null);
     },
   });
 };
