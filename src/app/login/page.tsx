@@ -29,7 +29,7 @@ export default function LoginPage() {
 
   const onSubmit = (data: LoginFormData) => {
     loginMutation.mutateAsync(data).then((response) => {
-      const role = response.user.role;
+      const role = response?.user?.role;
 
       if (role === "admin") {
         router.replace("/admin-dashboard");
