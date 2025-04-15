@@ -33,3 +33,11 @@ export interface ErrorResponse {
 export interface LogoutResponse {
   message: string;
 }
+
+export interface MeResponse {
+  user: SafeUser;
+}
+
+export interface MeErrorResponse {
+  error: string;
+}

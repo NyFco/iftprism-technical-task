@@ -1,15 +1,7 @@
 // Get current user API endpoint
-import { NextResponse } from "next/server";
 import { getTokenFromCookie, verifyToken } from "@/lib/auth";
-import { SafeUser } from "@/types";
-
-interface MeResponse {
-  user: SafeUser;
-}
-
-interface MeErrorResponse {
-  error: string;
-}
+import { MeErrorResponse, MeResponse } from "@/types";
+import { NextResponse } from "next/server";
 
 export async function GET(): Promise<
   NextResponse<MeResponse | MeErrorResponse>
