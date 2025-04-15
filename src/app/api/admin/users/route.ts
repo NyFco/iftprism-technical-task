@@ -1,15 +1,7 @@
 // Get all users API endpoint (admin only)
-import { NextResponse } from "next/server";
 import { getAllUsers } from "@/lib/db";
-import { SafeUser } from "@/types";
-
-interface UsersResponse {
-  users: SafeUser[];
-}
-
-interface UsersErrorResponse {
-  error: string;
-}
+import { UsersErrorResponse, UsersResponse } from "@/types";
+import { NextResponse } from "next/server";
 
 export async function GET(): Promise<
   NextResponse<UsersResponse | UsersErrorResponse>

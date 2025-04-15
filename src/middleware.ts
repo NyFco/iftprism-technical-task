@@ -3,6 +3,8 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { SafeUser } from "./types";
 
+const adminOnlyRoutes: string[] = ["/api/admin/users"];
+
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
@@ -10,7 +12,7 @@ export function middleware(req: NextRequest) {
   if (
     pathname.startsWith("/_next") ||
     pathname.startsWith("/favicon.ico") ||
-    pathname.startsWith("/api")
+    (pathname.startsWith("/api") && !adminOnlyRoutes.includes(pathname))
   ) {
     return NextResponse.next();
   }
@@ -27,6 +29,11 @@ export function middleware(req: NextRequest) {
     const decoded: SafeUser = jwtDecode(token as string);
     const role = decoded?.role;
 
+    // Protect hte admin-only api route
+    if (pathname === "/api/admin/users" && role !== "admin") {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     if (role === "admin" && pathname !== "/admin-dashboard") {
       return NextResponse.redirect(new URL("/admin-dashboard", req.url));
     } else if (role === "user" && pathname !== "/user-dashboard") {
@@ -36,13 +43,14 @@ export function middleware(req: NextRequest) {
     return NextResponse.next();
   } catch {
     // Delete the token and redirect to the login page
-    req.cookies.delete("token");
     if (pathname !== "/login") {
-      return NextResponse.redirect(new URL("/login", req.url));
+      const response = NextResponse.redirect(new URL("/login", req.url));
+      response.cookies.delete("token");
+      return response;
     }
   }
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|api).*)"],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
 };
