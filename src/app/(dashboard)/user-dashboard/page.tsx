@@ -9,7 +9,8 @@ const UserDashboard = () => {
     <div>
       {user && (
         <>
-          <h2>Welcome, {user.name}</h2>
+          <h2>Username: {user.username}</h2>
+          <h2>Name: {user.name}</h2>
           <h2>Role: {user.role}</h2>
         </>
       )}

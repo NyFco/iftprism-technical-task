@@ -24,7 +24,7 @@ const DashboardLayout = ({
   return (
     <div>
       <Header />
-      <main className="p-2">{children}</main>
+      <main>{children}</main>
     </div>
   );
 };
