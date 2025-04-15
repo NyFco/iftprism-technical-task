@@ -1,17 +1,10 @@
 // Logout API endpoint
-import { NextResponse } from "next/server";
 import { clearTokenCookie } from "@/lib/auth";
-
-interface LogoutResponse {
-  message: string;
-}
-
-interface LogoutErrorResponse {
-  error: string;
-}
+import { ErrorResponse, LogoutResponse } from "@/types";
+import { NextResponse } from "next/server";
 
 export async function POST(): Promise<
-  NextResponse<LogoutResponse | LogoutErrorResponse>
+  NextResponse<LogoutResponse | ErrorResponse>
 > {
   try {
     // Clear token cookie

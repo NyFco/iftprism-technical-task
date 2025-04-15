@@ -29,3 +29,7 @@ export interface LoginResponse {
 export interface ErrorResponse {
   error: string;
 }
+
+export interface LogoutResponse {
+  message: string;
+}
