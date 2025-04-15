@@ -41,3 +41,11 @@ export interface MeResponse {
 export interface MeErrorResponse {
   error: string;
 }
+
+export interface UsersResponse {
+  users: SafeUser[];
+}
+
+export interface UsersErrorResponse {
+  error: string;
+}
