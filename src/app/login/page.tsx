@@ -6,12 +6,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 type LoginFormData = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
+  const router = useRouter();
+
   const form = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
   });
@@ -26,7 +29,13 @@ export default function LoginPage() {
 
   const onSubmit = (data: LoginFormData) => {
     loginMutation.mutateAsync(data).then((response) => {
-      console.log(response);
+      const role = response.user.role;
+
+      if (role === "admin") {
+        router.replace("/admin-dashboard");
+      } else {
+        router.replace("/user-dashboard");
+      }
     });
   };
 

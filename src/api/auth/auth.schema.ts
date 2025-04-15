@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const loginSchema = z.object({
   username: z.string().min(1, "Username is required"),
-  password: z.string().min(6, "Password is required"),
+  password: z.string().min(1, "Password is required"),
 });
 
 export type LoginSchema = z.infer<typeof loginSchema>;
