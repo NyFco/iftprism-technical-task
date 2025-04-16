@@ -14,13 +14,15 @@ const Header = () => {
   };
 
   return (
-    <div className="flex items-center justify-between p-2 bg-accent">
-      <h1>
-        Welcome Back, <span className="font-bold">{user?.name}</span>
-      </h1>
-      <Button variant="destructive" onClick={handleLogout}>
-        Logout
-      </Button>
+    <div className="w-full flex items-center justify-center bg-gray-800">
+      <div className="max-w-[800px] w-full flex items-center justify-between p-2  text-white">
+        <h1>
+          Welcome Back, <span className="font-bold">{user?.name}</span>
+        </h1>
+        <Button variant="destructive" onClick={handleLogout}>
+          Logout
+        </Button>
+      </div>
     </div>
   );
 };

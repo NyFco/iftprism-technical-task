@@ -40,10 +40,10 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center px-4">
+    <div className="flex min-h-screen items-center justify-center px-4 bg-gray-700 text-white">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-sm space-y-6"
+        className="w-full max-w-sm space-y-6 bg-gray-800 p-6 rounded-lg shadow-md"
       >
         <div className="space-y-2">
           <Label htmlFor="username">Username</Label>
