@@ -1,4 +1,5 @@
 import { useUserStore } from "@/store/userStore";
+import { deleteCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useMutation, useQueryClient } from "react-query";
@@ -32,6 +33,7 @@ export const useLogout = () => {
         response?.message || "You have logged out successfully";
       toast.success(successMessage);
       setUser(null);
+      deleteCookie("token");
     },
   });
 };
